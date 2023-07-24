@@ -46,6 +46,8 @@ For each line (packet) you'll find values for a specified Rnti:
 - Phr
 - Pcmax
 - Rsrp
+- Rsrq
+- Sinr
 - Rssi
 - Cqi
 - Pucch Snr

@@ -47,6 +47,8 @@ def setup_dic():
     dic["pmi"] = None
     dic["phr"] = None
     dic["pcmax"] = None
+    dic["rsrq"] = None
+    dic["sinr"] = None
     dic["rsrp"] = None
     dic["rssi"] = None
     dic["cqi"] = None        
@@ -76,6 +78,8 @@ def parsingdata(line, index_ue):
     dic["pmi"] = index_ue["pmi"]
     dic["phr"] = index_ue["phr"]
     dic["pcmax"] = index_ue["pcmax"]
+    dic["rsrq"] = index_ue["rsrq"]
+    dic["sinr"] = index_ue["sinr"]
     dic["rsrp"] = index_ue["rsrp"]
     dic["rssi"] = index_ue["rssi"]
     dic["cqi"] = index_ue["cqi"]        
