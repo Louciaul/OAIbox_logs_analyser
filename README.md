@@ -1,4 +1,4 @@
-# How to get and transform the OAIBox logs in a beautiful useful csv for analysing data (V 1)
+# How to get and transform the OAIBox logs in a beautiful useful csv for analysing data (V 1.0)
 
 ## Summary
 
