@@ -25,7 +25,7 @@ def check_rnti_option(rnti,user_options):
 
 
 
-def dl_throughput_graph(data_sorted, min_timestamp,user_options):
+def dl_throughput_graph(data_sorted, min_timestamp, max_timestamp, user_options):
 
     plt.figure()
 
@@ -50,7 +50,7 @@ def dl_throughput_graph(data_sorted, min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 previous_dl = int(packet[6])
                 continue
 
@@ -77,7 +77,7 @@ def dl_throughput_graph(data_sorted, min_timestamp,user_options):
 
 
 
-def ul_throughput_graph(data_sorted,min_timestamp,user_options):
+def ul_throughput_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.figure()
 
@@ -102,7 +102,7 @@ def ul_throughput_graph(data_sorted,min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 previous_ul = int(packet[9])
                 continue
 
@@ -129,7 +129,7 @@ def ul_throughput_graph(data_sorted,min_timestamp,user_options):
 
 
 
-def rsrq_graph(data_sorted,min_timestamp,user_options):
+def rsrq_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.figure()
 
@@ -138,7 +138,7 @@ def rsrq_graph(data_sorted,min_timestamp,user_options):
         
         #create two list to fulfill with the selected data that we need
         timestamp_list = []
-        rssi = []
+        rsrq = []
         
         #check rnti command filter option
         if(check_rnti_option(rnti,user_options)):
@@ -151,14 +151,15 @@ def rsrq_graph(data_sorted,min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
 
-            rssi.append(float(packet[16]))
+            rsrq.append(float(packet[16]))
 
-        plt.plot(timestamp_list,rssi, marker='o', label=rnti,markersize=1)
+
+        plt.plot(timestamp_list,rsrq, marker='o', label=rnti,markersize=1)
 
 
     plt.legend()
@@ -173,7 +174,51 @@ def rsrq_graph(data_sorted,min_timestamp,user_options):
 
 
 
-def sinr_graph(data_sorted,min_timestamp,user_options):
+def sinr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+
+    plt.figure()
+
+    #enumerate each rnti with its data associated
+    for rnti, data in data_sorted.items():
+        
+        #create two list to fulfill with the selected data that we need
+        timestamp_list = []
+        sinr = []
+        
+        #check rnti command filter option
+        if(check_rnti_option(rnti,user_options)):
+            continue
+
+
+        #plot each packet of the rnti
+        for packet in data:
+
+            timestamp = round((int(packet[5]) - min_timestamp)/1000)
+
+            #we match time option filter of the user
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+                continue
+
+            timestamp_list.append(timestamp)
+
+            sinr.append(float(packet[17]))
+
+        plt.plot(timestamp_list,sinr, marker='o', label=rnti,markersize=1)
+
+
+    plt.legend()
+    plt.xlabel("Time in second")
+    plt.ylabel("SINR in dBm")
+    plt.title("SINR graph")
+
+    #save graph
+    plt.savefig("graph/SINR_graph.png")
+
+    plt.close()
+
+
+
+def rsrp_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.figure()
 
@@ -195,58 +240,14 @@ def sinr_graph(data_sorted,min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
 
-            rsrp.append(float(packet[17]))
+            rsrp.append(float(packet[18]))
 
         plt.plot(timestamp_list,rsrp, marker='o', label=rnti,markersize=1)
-
-
-    plt.legend()
-    plt.xlabel("Time in second")
-    plt.ylabel("SINR in dBm")
-    plt.title("SINR graph")
-
-    #save graph
-    plt.savefig("graph/SINR_graph.png")
-
-    plt.close()
-
-
-
-def rsrp_graph(data_sorted,min_timestamp,user_options):
-
-    plt.figure()
-
-    #enumerate each rnti with its data associated
-    for rnti, data in data_sorted.items():
-        
-        #create two list to fulfill with the selected data that we need
-        timestamp_list = []
-        rssi = []
-        
-        #check rnti command filter option
-        if(check_rnti_option(rnti,user_options)):
-            continue
-
-
-        #plot each packet of the rnti
-        for packet in data:
-
-            timestamp = round((int(packet[5]) - min_timestamp)/1000)
-
-            #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
-                continue
-
-            timestamp_list.append(timestamp)
-
-            rssi.append(float(packet[18]))
-
-        plt.plot(timestamp_list,rssi, marker='o', label=rnti,markersize=1)
 
 
     plt.legend()
@@ -259,7 +260,7 @@ def rsrp_graph(data_sorted,min_timestamp,user_options):
 
     plt.close()
 
-def rssi_graph(data_sorted,min_timestamp,user_options):
+def rssi_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.figure()
 
@@ -281,7 +282,7 @@ def rssi_graph(data_sorted,min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -306,7 +307,7 @@ def rssi_graph(data_sorted,min_timestamp,user_options):
 
 
 
-def pucchSnr_graph(data_sorted,min_timestamp,user_options):
+def pucchSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.figure()
 
@@ -328,7 +329,7 @@ def pucchSnr_graph(data_sorted,min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -350,7 +351,7 @@ def pucchSnr_graph(data_sorted,min_timestamp,user_options):
 
 
 
-def puschSnr_graph(data_sorted,min_timestamp,user_options):
+def puschSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.figure()
 
@@ -372,7 +373,7 @@ def puschSnr_graph(data_sorted,min_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > user_options.end):
+            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
                 continue
 
             timestamp_list.append(timestamp)

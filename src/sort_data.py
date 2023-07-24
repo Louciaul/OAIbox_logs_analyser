@@ -42,3 +42,20 @@ def find_minimum_timestamp(data_sorted):
                 minimun_timestamp = int(packet[5])
 
     return minimun_timestamp
+
+#For options purpose (ending option)
+def find_max_timestamp(data_sorted):
+
+    #We need to find a maximum
+    max_timestamp = 0
+
+    for rnti, data in data_sorted.items():
+
+        for packet in data:
+
+            if int(packet[5]) > max_timestamp:
+                max_timestamp = int(packet[5])
+
+    max_timestamp = round((max_timestamp - find_minimum_timestamp(data_sorted))/1000)
+
+    return max_timestamp

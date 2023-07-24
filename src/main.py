@@ -18,21 +18,23 @@ def start_graph(data_sorted,user_options):
 
     min_timestamp = find_minimum_timestamp(data_sorted)
 
-    dl_throughput_graph(data_sorted, min_timestamp, user_options)
+    max_timestamp = find_max_timestamp(data_sorted)
 
-    ul_throughput_graph(data_sorted, min_timestamp, user_options)
+    dl_throughput_graph(data_sorted, min_timestamp, max_timestamp, user_options)
 
-    rsrq_graph(data_sorted,min_timestamp,user_options)
+    ul_throughput_graph(data_sorted, min_timestamp, max_timestamp, user_options)
 
-    sinr_graph(data_sorted,min_timestamp,user_options)
+    rsrq_graph(data_sorted,min_timestamp, max_timestamp,user_options)
 
-    rsrp_graph(data_sorted,min_timestamp,user_options)
+    sinr_graph(data_sorted,min_timestamp, max_timestamp,user_options)
 
-    rssi_graph(data_sorted,min_timestamp,user_options)
+    rsrp_graph(data_sorted,min_timestamp, max_timestamp,user_options)
 
-    pucchSnr_graph(data_sorted,min_timestamp,user_options)
+    rssi_graph(data_sorted,min_timestamp, max_timestamp,user_options)
 
-    puschSnr_graph(data_sorted,min_timestamp,user_options)
+    pucchSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options)
+
+    puschSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options)
 
 
 
