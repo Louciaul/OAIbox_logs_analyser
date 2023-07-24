@@ -62,7 +62,7 @@ You will there find 2 scripts:
 
     The script also delete line of logs with no Rnti (ue) inside.
 
-- Second most of the graphs with the csv file. You can then use filter to get more precise result
+- Second most of the graphs with the csv file. You can then use filter to get more precise result.
 
 ### 3) How to use it
 
