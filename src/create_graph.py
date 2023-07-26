@@ -25,7 +25,7 @@ def check_rnti_option(rnti,user_options):
 
 
 
-def dl_throughput_graph(data_sorted, min_timestamp, max_timestamp, user_options):
+def dl_throughput_graph(data_sorted, min_timestamp, user_options):
 
     plt.figure()
 
@@ -50,7 +50,7 @@ def dl_throughput_graph(data_sorted, min_timestamp, max_timestamp, user_options)
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 previous_dl = int(packet[6])
                 continue
 
@@ -77,7 +77,7 @@ def dl_throughput_graph(data_sorted, min_timestamp, max_timestamp, user_options)
 
 
 
-def ul_throughput_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def ul_throughput_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -102,7 +102,7 @@ def ul_throughput_graph(data_sorted,min_timestamp, max_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 previous_ul = int(packet[9])
                 continue
 
@@ -129,7 +129,7 @@ def ul_throughput_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
 
 
-def rsrq_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def rsrq_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -148,10 +148,14 @@ def rsrq_graph(data_sorted,min_timestamp, max_timestamp,user_options):
         #plot each packet of the rnti
         for packet in data:
 
+            #case data is missing, happen sometimes
+            if(packet[16] == "missing"):
+                continue
+
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -174,7 +178,7 @@ def rsrq_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
 
 
-def sinr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def sinr_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -193,10 +197,15 @@ def sinr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
         #plot each packet of the rnti
         for packet in data:
 
+
+            #case data is missing, happen sometimes
+            if(packet[17] == "missing"):
+                continue
+
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -218,7 +227,7 @@ def sinr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
 
 
-def rsrp_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def rsrp_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -240,7 +249,7 @@ def rsrp_graph(data_sorted,min_timestamp, max_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -260,7 +269,7 @@ def rsrp_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
     plt.close()
 
-def rssi_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def rssi_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -282,7 +291,7 @@ def rssi_graph(data_sorted,min_timestamp, max_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -307,7 +316,7 @@ def rssi_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
 
 
-def pucchSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def pucchSnr_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -329,7 +338,7 @@ def pucchSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 continue
 
             timestamp_list.append(timestamp)
@@ -351,7 +360,7 @@ def pucchSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
 
 
 
-def puschSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
+def puschSnr_graph(data_sorted,min_timestamp,user_options):
 
     plt.figure()
 
@@ -373,7 +382,7 @@ def puschSnr_graph(data_sorted,min_timestamp, max_timestamp,user_options):
             timestamp = round((int(packet[5]) - min_timestamp)/1000)
 
             #we match time option filter of the user
-            if(timestamp < user_options.start or timestamp > max_timestamp - user_options.end):
+            if(timestamp < user_options.start or timestamp > user_options.end):
                 continue
 
             timestamp_list.append(timestamp)

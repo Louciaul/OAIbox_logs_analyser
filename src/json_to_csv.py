@@ -16,7 +16,7 @@ def json_to_csv():
     # Analysing command line arguments
     args = parser.parse_args()
 
-    json_file = "json/" + args.json
+    json_file = args.json
 
     csv_file = "csv/" + args.csv
     
@@ -78,8 +78,17 @@ def parsingdata(line, index_ue):
     dic["pmi"] = index_ue["pmi"]
     dic["phr"] = index_ue["phr"]
     dic["pcmax"] = index_ue["pcmax"]
-    dic["rsrq"] = index_ue["rsrq"]
-    dic["sinr"] = index_ue["sinr"]
+
+    if("rsrq" in index_ue):
+        dic["rsrq"] = index_ue["rsrq"]
+    else:
+        dic["rsrq"] = "missing"
+    
+    if("sinr" in index_ue):
+        dic["sinr"] = index_ue["sinr"]
+    else:
+        dic["sinr"] = "missing"
+    
     dic["rsrp"] = index_ue["rsrp"]
     dic["rssi"] = index_ue["rssi"]
     dic["cqi"] = index_ue["cqi"]        
@@ -107,6 +116,7 @@ def writing_csv(csv_file, data_cleared):
 def clear_data(json_file):
 
     data_cleared = []
+    
     # Loading json file
     with open(json_file, 'r') as json_file:
         data_json = json.load(json_file)

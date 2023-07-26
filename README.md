@@ -62,7 +62,7 @@ You will there find 2 scripts:
 
     The script also delete line of logs with no Rnti (ue) inside.
 
-- Second most of the graphs with the csv file. You can then use filter to get more precise result
+- Second will recreate most of the graphs with the csv file. You can then use filter to get more precise result
 
 ### 3) How to use it
 
@@ -74,24 +74,21 @@ To get your csv file from the json logs:
 python src/json_to_csv.py your-logs.json name-of-your-result-file.csv
 ```
 
-NB: your json need to be in the json folder to succesfully work. your csv file will be in the csv folder also.
-
 ---
 To get your graph:
-
-NB: your csv file need to be in the "csv" folder to the code to work
 
 
 ```bash
 python src/main.py file.csv [-s (int)] [-e (int)] [-r1 (string)] [-r2 (string)] 
 ```
 
+NB: time limit is by default 30 mins of data, you can change that by using -e option
 
 Avaible options:
 
 -s option: to change the starting timer of the data (for example if you don't want the 5 first minutes on your graph just use "-s 300" (time is in second))
 
--e option: to change the ending timer of the data (for example if you don't want the 5 last minutes on your graph just use "-e 300" (time is in second))
+-e option: to change the ending timer of the data, just add the maximum time limit (-1500 to not go over 1500 seconds)
 
 -r1 option: if you want to select only one rnti specifically (for example if you want to see only rnti "4ac8" use "r1 4ac8)
 

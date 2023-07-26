@@ -44,6 +44,8 @@ def find_minimum_timestamp(data_sorted):
     return minimun_timestamp
 
 #For options purpose (ending option)
+
+#DEPRECIATED
 def find_max_timestamp(data_sorted):
 
     #We need to find a maximum
