@@ -105,6 +105,10 @@ Avaible options:
 
 - Then on the left of the dashboard click on the button to download the logs
 
+NB: this git from allbesmart exists https://github.com/allbesmart/oaibox-data-subscriber
+the csv format created from their code is not the same that this code need.
+
+Currently you can't use the allbesmart's code with this code
 
 
 ### 5) Version
