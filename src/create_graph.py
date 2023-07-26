@@ -54,6 +54,11 @@ def dl_throughput_graph(data_sorted, min_timestamp, user_options):
                 previous_dl = int(packet[6])
                 continue
 
+            #Just to avoid big spike at start
+            if(previous_dl == 0):
+                previous_dl = int(packet[6])
+                continue
+
             timestamp_list.append(timestamp)
 
             #we want MB/s
@@ -103,6 +108,11 @@ def ul_throughput_graph(data_sorted,min_timestamp,user_options):
 
             #we match time option filter of the user
             if(timestamp < user_options.start or timestamp > user_options.end):
+                previous_ul = int(packet[9])
+                continue
+
+            #Just to avoid big spike at start
+            if(previous_ul == 0):
                 previous_ul = int(packet[9])
                 continue
 
