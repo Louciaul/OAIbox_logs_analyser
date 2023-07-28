@@ -88,11 +88,33 @@ Avaible options:
 
 -s option: to change the starting timer of the data (for example if you don't want the 5 first minutes on your graph just use "-s 300" (time is in second))
 
+```bash
+python src/main.py file.csv -s 300
+```
+
 -e option: to change the ending timer of the data, just add the maximum time limit (-1500 to not go over 1500 seconds)
+
+```bash
+python src/main.py file.csv -e 1500
+```
 
 -r1 option: if you want to select only one rnti specifically (for example if you want to see only rnti "4ac8" use "r1 4ac8)
 
+```bash
+python src/main.py file.csv -r1 4ac8
+```
+
 -r2 option: (only if r1 used) if you want to select a second rnti
+
+```bash
+python src/main.py file.csv -r1 4ac8 -r2 8c5e
+```
+
+You can use all the option at the same time:
+
+```bash
+python src/main.py file.csv -s 300 -e 1500 -r1 4ac8 -r2 8c5e
+```
 
 
 ### 4) How to get the logs of your OAIbox
