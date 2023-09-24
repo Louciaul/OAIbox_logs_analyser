@@ -178,7 +178,7 @@ def rsrq_graph(data_sorted,min_timestamp,user_options):
 
     plt.legend()
     plt.xlabel("Time in second")
-    plt.ylabel("RSRQ in dBm")
+    plt.ylabel("RSRQ in dB")
     plt.title("RSRQ graph")
 
     #save graph
